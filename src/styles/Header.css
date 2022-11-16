@@ -1,0 +1,16 @@
+.App-header {
+  background-color: rgb(54, 54, 74);
+  height: 70px;
+  width: 100vw;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  gap: 10px;
+}
+
+.App-header > .App-score {
+  font-size: 2rem;
+  margin-left: 50%;
+  position: absolute;
+}
