@@ -1,0 +1,12 @@
+.App-gameboard {
+  background-color: rgb(169, 169, 183);
+  height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.App-gameboard > .App-score {
+  font-size: 2rem;
+}
