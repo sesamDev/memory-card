@@ -5,8 +5,7 @@ import React from "react";
 const Header = () => {
   return (
     <div className="App-header">
-      <h1>Game Title</h1>
-      <div>Logo</div>
+      <h1>Programmer Language Memory</h1>
     </div>
   );
 };
