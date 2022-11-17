@@ -23,11 +23,11 @@ const CardSpawner = (props) => {
   const [cardsAvailable, setcardsAvailable] = useState(() => cardData);
   const [cardsInPlay, setcardsInPlay] = useState(() => []);
   const [shuffleCards, setshuffleCards] = useState(false);
-  console.log("cards in play: " + cardsInPlay.map((card) => card.title));
-  console.log("===Shuffle cards: " + shuffleCards + "===");
+  // console.log("cards in play: " + cardsInPlay.map((card) => card.title));
+  // console.log("===Shuffle cards: " + shuffleCards + "===");
 
   useEffect(() => {
-    console.log("=== useEffect: Mount ===");
+    // console.log("=== useEffect: Mount ===");
     if (cardsInPlay.length === 0) {
       let cardsToSpawn = 0;
       let cards = [];
@@ -51,7 +51,7 @@ const CardSpawner = (props) => {
       setcardsAvailable(uniqueCards);
     }
 
-    console.log("=== useEffect: Update ===");
+    // console.log("=== useEffect: Update ===");
     if (shuffleCards) {
       setcardsInPlay(() => shuffleArray(cardsInPlay));
     }
@@ -66,9 +66,12 @@ const CardSpawner = (props) => {
           title={card.title}
           img={card.img}
           shuffleCard={() => {
-            console.log("Trigger update");
+            // console.log("Trigger update");
             setshuffleCards(true);
           }}
+          setselectedCards={props.setselectedCards}
+          selectedCards={props.selectedCards}
+          setgameOver={props.setgameOver}
         />
       );
     });
