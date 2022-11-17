@@ -80,25 +80,35 @@ const CardSpawner = (props) => {
       setcardsInPlay(() => shuffleArray(cardsInPlay));
     }
     setshuffleCards(false);
-  }, [props.level, shuffleCards, cardsAvailable, cardsInPlay.length]);
+  }, [props.level, shuffleCards, cardsAvailable, cardsInPlay.length, cardsInPlay]);
 
   // For update only
 
   const spawnCard = (cards) => {
     return cards.map((card) => {
-      return <Card key={card.title} title={card.title} img={card.img} />;
+      return (
+        <Card
+          key={card.title}
+          title={card.title}
+          img={card.img}
+          shuffleCard={() => {
+            console.log("Trigger update");
+            setshuffleCards(true);
+          }}
+        />
+      );
     });
   };
 
   return (
     <div className="App-cardspawner">
       {spawnCard(cardsInPlay)}
-      <button
+      {/* <button
         onClick={() => {
           console.log("Trigger update");
           setshuffleCards(true);
         }}
-      />
+      /> */}
     </div>
   );
 };
