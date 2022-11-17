@@ -14,17 +14,28 @@ const Gameboard = () => {
   const [highScore, setHighScore] = useState(() => 0);
   const [gameOver, setgameOver] = useState(() => false);
   const [selectedCards, setselectedCards] = useState(() => []);
+  console.log(level);
 
   useEffect(() => {
     if (gameOver) {
       console.log("GAME OVER");
       setselectedCards([]);
       setHighScore(selectedCards.length - 1);
-      setgameOver(false);
+      setLevel(1);
     }
+
+    //Increase level
+    if (selectedCards.length === 4 && !gameOver) {
+      console.log("Next level");
+      setLevel((prevLevel) => prevLevel + 1);
+    }
+    if (selectedCards.length === 6 && !gameOver) {
+      console.log("Next level");
+      setLevel((prevLevel) => prevLevel + 1);
+    }
+    setgameOver(false);
   }, [gameOver, selectedCards.length]);
 
-  console.log(selectedCards);
   return (
     <div className="App-gameboard">
       <Score currentScore={selectedCards.length} highScore={highScore} />

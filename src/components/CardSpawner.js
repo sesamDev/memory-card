@@ -23,39 +23,62 @@ const CardSpawner = (props) => {
   const [cardsAvailable, setcardsAvailable] = useState(() => cardData);
   const [cardsInPlay, setcardsInPlay] = useState(() => []);
   const [shuffleCards, setshuffleCards] = useState(false);
-  // console.log("cards in play: " + cardsInPlay.map((card) => card.title));
-  // console.log("===Shuffle cards: " + shuffleCards + "===");
+  const [currentLevel, setcurrentLevel] = useState(() => props.level);
+  console.log(cardsInPlay);
+
+  const addCards = (n) => {
+    let cardsToSpawn = n;
+    let cards = [];
+    let uniqueCards = cardsAvailable;
+    for (let i = 0; i < cardsToSpawn; i++) {
+      let card = uniqueCards[randInt(uniqueCards.length)];
+      uniqueCards = uniqueCards.filter((c) => c.title !== card.title);
+      cards.push(card);
+    }
+    setcardsInPlay([...cardsInPlay, ...cards]);
+    setcardsAvailable(uniqueCards);
+    setcurrentLevel(props.level);
+  };
 
   useEffect(() => {
-    // console.log("=== useEffect: Mount ===");
+    console.log("=== GAMEBOARD ===");
+    console.log("Level: " + props.level);
     if (cardsInPlay.length === 0) {
-      let cardsToSpawn = 0;
-      let cards = [];
-      if (props.level === 1) {
-        cardsToSpawn = 4;
-      }
-      if (props.level === 2) {
-        cardsToSpawn = 6;
-      }
-      if (props.level === 3) {
-        cardsToSpawn = 8;
-      }
-
-      let uniqueCards = cardsAvailable;
-      for (let i = 0; i < cardsToSpawn; i++) {
-        let card = uniqueCards[randInt(uniqueCards.length)];
-        uniqueCards = uniqueCards.filter((c) => c.title !== card.title);
-        cards.push(card);
-      }
-      setcardsInPlay(cards);
-      setcardsAvailable(uniqueCards);
+      addCards(4);
     }
+    if (props.level > currentLevel) {
+      addCards(2);
+    }
+    // if (cardsInPlay.length === 0) {
+    //   let cardsToSpawn = 0;
+    //   let cards = [];
+    //   if (props.level === 1) {
+    //     cardsToSpawn = 4;
+    //   }
+    //   if (props.level === 2) {
+    //     cardsToSpawn = 6;
+    //   }
+    //   if (props.level === 3) {
+    //     cardsToSpawn = 8;
+    //   }
+
+    //   let uniqueCards = cardsAvailable;
+    //   for (let i = 0; i < cardsToSpawn; i++) {
+    //     let card = uniqueCards[randInt(uniqueCards.length)];
+    //     uniqueCards = uniqueCards.filter((c) => c.title !== card.title);
+    //     cards.push(card);
+    //   }
+    //   setcardsInPlay(cards);
+    //   setcardsAvailable(uniqueCards);
+    //   setcurrentLevel(props.level);
+    // }
 
     // console.log("=== useEffect: Update ===");
     if (shuffleCards) {
       setcardsInPlay(() => shuffleArray(cardsInPlay));
     }
     setshuffleCards(false);
+    return () => {};
   }, [props.level, shuffleCards, cardsAvailable, cardsInPlay.length, cardsInPlay]);
 
   const spawnCard = (cards) => {
